@@ -28,7 +28,13 @@ namespace ParkyAPI.Controllers
         {
             var objList = _npRepo.GetNationalParks();
 
-            return Ok(objList); 
+            var objDto = new List<NationalParkDto>();
+
+            foreach (var obj in objList)
+            {
+                objDto.Add(_mapper.Map<NationalParkDto>(obj));
+            }
+            return Ok(objDto); 
         }
     }
 }
