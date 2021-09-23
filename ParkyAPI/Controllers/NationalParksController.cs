@@ -76,7 +76,7 @@ namespace ParkyAPI.Controllers
             return CreatedAtRoute("GetNationalPark", new { id = nationalParkObj.Id }, nationalParkObj);
         }
 
-        [HttpPatch("id:int", Name = "UpdateNationalPark")]
+        [HttpPatch("{id:int}", Name = "UpdateNationalPark")]
         public IActionResult UpdateNationalPark(int id, [FromBody] NationalParkDto nationalParkDto)
         {
             if (nationalParkDto == null || id != nationalParkDto.Id)
@@ -95,7 +95,7 @@ namespace ParkyAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("id:int", Name = "DeleteNationalPark")]
+        [HttpDelete("{id:int}", Name = "DeleteNationalPark")]
         public IActionResult DeleteNationalPark(int id)
         {
             if (!_npRepo.NationalParkExists(id))
