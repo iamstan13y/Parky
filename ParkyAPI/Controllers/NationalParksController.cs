@@ -38,7 +38,7 @@ namespace ParkyAPI.Controllers
             return Ok(objDto); 
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int id)
         {
             var obj = _npRepo.GetNationalPark(id);
@@ -73,7 +73,7 @@ namespace ParkyAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok();
+            return CreatedAtRoute("GetNationalPark", new { id = nationalParkObj.Id }, nationalParkObj);
         }
     }
 }
