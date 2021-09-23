@@ -65,11 +65,6 @@ namespace ParkyAPI.Controllers
                 return StatusCode(404, ModelState);
             }
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var nationalParkObj = _mapper.Map<NationalPark>(nationalParkDto);
 
             if (!_npRepo.CreateNationalPark(nationalParkObj))
