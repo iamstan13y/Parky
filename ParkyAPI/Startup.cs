@@ -45,7 +45,19 @@ namespace ParkyAPI
                     new OpenApiInfo()
                     {
                         Title = "Parky API",
-                        Version = "1"
+                        Version = "1",
+                        Description = "The Official Parky API.",
+                        Contact = new OpenApiContact()
+                        {
+                            Email = "iamstan13y@gmail.com",
+                            Name = "Keith Stanley",
+                            Url = new Uri("https://keith.co.zw")
+                        },
+                        License = new OpenApiLicense()
+                        {
+                            Name = "MIT License",
+                            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                        }
                     });
 
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
