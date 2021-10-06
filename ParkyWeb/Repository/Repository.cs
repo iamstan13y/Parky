@@ -89,9 +89,30 @@ namespace ParkyWeb.Repository
             return null;
         }
 
-        public Task<bool> UpdateAsync(string url, T objToCreate)
+        public async Task<bool> UpdateAsync(string url, T objToUpdate)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            if (objToUpdate != null)
+            {
+                request.Content = new StringContent(
+                    JsonConvert.SerializeObject(objToUpdate), Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                return false;
+            }
+
+            var client = _clientFactory.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
