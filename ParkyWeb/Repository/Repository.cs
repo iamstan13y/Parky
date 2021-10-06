@@ -74,9 +74,19 @@ namespace ParkyWeb.Repository
             return null;
         }
 
-        public Task<T> GetAsync(string url, int Id)
+        public async Task<T> GetAsync(string url, int Id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            var client = _clientFactory.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(jsonString);
+            }
+            return null;
         }
 
         public Task<bool> UpdateAsync(string url, T objToCreate)
