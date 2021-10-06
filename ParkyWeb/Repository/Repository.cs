@@ -45,9 +45,18 @@ namespace ParkyWeb.Repository
             }
         }
 
-        public Task<bool> DeleteAsync(string url, int Id)
+        public async Task<bool> DeleteAsync(string url, int Id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Delete, url+Id);
+
+            var client = _clientFactory.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            return false;
         }
 
         public Task<IEnumerable<T>> GetAllAsync(string url)
