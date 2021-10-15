@@ -83,7 +83,7 @@ namespace ParkyWeb.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _npRepo.DeleteAsync(SD.TrailAPIPath, id);
+            var status = await _trailRepo.DeleteAsync(SD.TrailAPIPath, id);
 
             if (status)
             {
