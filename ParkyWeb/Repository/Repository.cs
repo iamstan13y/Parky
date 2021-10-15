@@ -91,7 +91,7 @@ namespace ParkyWeb.Repository
 
         public async Task<bool> UpdateAsync(string url, T objToUpdate)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            var request = new HttpRequestMessage(HttpMethod.Patch, url);
             if (objToUpdate != null)
             {
                 request.Content = new StringContent(

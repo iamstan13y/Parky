@@ -61,7 +61,7 @@
             <div class="form-group row">
                 <div class="col-4 offset-4">
                     <button type="submit" class="btn btn-primary form-control">
-                        @(Model.Id!=0?"Update":"Create ")
+                        @(Model.Id != 0? "Update" : "Create")
                     </button>
                 </div>
                 <div class="col-4">
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="col-4 text-right" style="width:250px;">
-            @if (Model.Picture!=null)
+            @if (Model.Picture != null)
             {
                 var base64 = Convert.ToBase64String(Model.Picture);
                 var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
