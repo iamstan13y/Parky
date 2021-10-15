@@ -54,36 +54,18 @@ namespace ParkyWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(Trail obj)
+        public async Task<IActionResult> Upsert(TrailsViewModel obj)
         {
             if (ModelState.IsValid)
             {
-                var files = HttpContext.Request.Form.Files;
-                if (files.Count > 0)
+                
+                if (obj.Trail.Id == 0)
                 {
-                    byte[] picture = null;
-                    using (var fileStream = files[0].OpenReadStream())
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            fileStream.CopyTo(memoryStream);
-                            picture = memoryStream.ToArray();
-                        }
-                    }
-                    obj.Picture = picture;
+                    await _trailRepo.CreateAsync(SD.TrailAPIPath, obj.Trail);
                 }
                 else
                 {
-                    var objFromDb = await _npRepo.GetAsync(SD.TrailAPIPath, obj.Id);
-                    obj.Picture = objFromDb.Picture;
-                }
-                if (obj.Id == 0)
-                {
-                    await _npRepo.CreateAsync(SD.TrailAPIPath, obj);
-                }
-                else
-                {
-                    await _npRepo.UpdateAsync(SD.TrailAPIPath+obj.Id, obj);
+                    await _trailRepo.UpdateAsync(SD.TrailAPIPath+obj.Trail.Id, obj.Trail);
                 }
                 return RedirectToAction(nameof(Index));
             }
