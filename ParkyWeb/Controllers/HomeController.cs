@@ -73,5 +73,31 @@ namespace ParkyWeb.Controllers
             HttpContext.Session.SetString("JWToken", userObj.Token);
             return RedirectToAction("~/Home/Index");
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(User user)
+        {
+            bool result = await _accountRepo.RegisterAsync(SD.AccountAPIPath + "register/", user);
+
+            if (result== false)
+            {
+                return View();
+            }
+
+            return RedirectToAction("~/Home/Login");
+        }
+
+        public async Task<IActionResult> LogoutAsync()
+        {
+            HttpContext.Session.SetString("JWToken", "");
+            return RedirectToAction("~/Home/Index");
+        }
     }
 }
