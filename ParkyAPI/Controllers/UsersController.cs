@@ -25,7 +25,7 @@ namespace ParkyAPI.Controllers
         
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] User model)
+        public IActionResult Authenticate([FromBody] AuthModel model)
         {
             var user = _userRepository.Authenticate(model.Username, model.Password);
 
@@ -39,7 +39,7 @@ namespace ParkyAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User model)
+        public IActionResult Register([FromBody] AuthModel model)
         {
             bool isUnique = _userRepository.IsUniqueUser(model.Username);
 
