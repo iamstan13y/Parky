@@ -1,5 +1,3 @@
-using System;
-
 namespace ParkyWeb.Models
 {
     public class ErrorViewModel
